@@ -1,0 +1,39 @@
+Project Name: Guessing Games
+
+Members: Andrew Gosse, Brandon Schurman, Kurt Engsig
+
+Project Description:
+
+We (Cereal Killers), would like to construct a revamped "Guess Who?" game. This game will be played online between two clients, connected and controlled via our server, and is based on the classic guessing game by Milton Bradley.
+
+The rules for the game are as follows:
+
+The objective is to guess which character the opponent is holding.
+A player selects the theme for the game they wish to play. This theme will be a collection of characters in which the players will attempt to guess. Examples may include video game characters, celebrities, historic figures, etcetera. A game is formed between two players of the same theme. The players are given a random character from the collection, and the game begins. 
+The player who is selected to guess first, inputs a question in which they hope will eliminate or "narrow down" the possible candidates from the collection. Their opponent receives this guess and is given the option to answer "Yes", "No" or request that the guess be rephrased.
+When the player receives their opponents response, they are able to cross out any characters on their board which do not fit their new description of who their opponents character might be. For example, a player may ask if their opponents character has starred in an action movie. Finding out that the answer is in fact "No", the player can now cross out any characters on their board who have starred in an action move. 
+The players alternate guessing and answering until one of them figures out their opponents character.
+
+
+The game will have a graphical user interface consisting of:
+
+The Game Board:
+The game board will be the largest component of the GUI. It will layout thumbnail icons of each character in a grid-like fashion. Each thumbnail will contain the character's name, photo, and a letter that corresponds to a key on a standard keyboard. The game board it self will have a keyboard-event listener. While the game board is selected the player may press a letter on their keyboard to cross out or reveal the corresponding character. This feature makes it easy for the user to quickly toggle characters and switch to the question field without reaching for their mouse. They may still use their mouse, however.
+
+The Question Field:
+The question field is a simple text box in which the guessing player may send a question to their opponent. The players can also view the game's question-answer history. When the player is answering, they will not be able to input text, but will choose from preconfigured answers ("Yes", "No", "Rephrase"). Upon sending a question, the player's current game board state is also sent, and deployed on their opponents opponent board. 
+
+The Opponent Board:
+Significantly smaller than the game board. The opponent board only shows which icons a player's opponent has crossed out, without revealing any details about the characters the icons contain.
+
+This project should prove to be both educating and challenging, as our team's members are new to web development and Javascript.
+Milestones
+1) Architecture diagram & external library/program use
+2) Able to connect the client and server
+3) Two clients are able to connect to the server and communicate with eachother over the server
+4) Basics of the game are working (sending and recieving guesses and removing the characters that have been crossed off from the list)
+5) Framework demo
+6) Full GUI of the game complete
+7) Working prototype
+8) Draft documentation
+9) Final code and documentation
