@@ -1,6 +1,7 @@
 
 /**
  * Module dependencies.
+ *
  */
 
 var express = require('express')
@@ -39,7 +40,7 @@ app.get('/', function(req, res, next){
         routes.index(req, res, next);
     }
 });
-app.get('/users', db.isAuthenticated, user.list);
+app.get('/users', db.isAuthenticated, db.loginList);
 app.post("/login", function(req,res){
     db.login(req, req.body.username);
     res.redirect("/users");
