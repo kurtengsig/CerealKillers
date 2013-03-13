@@ -31,8 +31,8 @@ Milestones
 1) Architecture diagram & external library/program use
 2) Able to connect the client and server
 3) Two clients are able to connect to the server and communicate with eachother over the server
-4) Basics of the game are working (sending and recieving guesses and removing the characters that have been crossed off from the list)
-5) Framework demo
+4) Framework demo
+5) Basics of the game are working (sending and recieving guesses and removing the characters that have been crossed off from the list)
 6) Full GUI of the game complete
 7) Working prototype
 8) Draft documentation
