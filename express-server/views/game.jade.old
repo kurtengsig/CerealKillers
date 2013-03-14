@@ -3,14 +3,11 @@ html
   head
     title Guess Who?
     link(type='text/css', rel='stylesheet', href='stylesheets/stylesheet.css')
-    script(src='http://code.jquery.com/jquery-1.9.1.min.js')
-    script(src='http://code.jquery.com/jquery-migrate-1.1.1.min.js')
-    script(type='text/javascript', src='../GuessQuery.js')
   body
-    #head
+    div
       h1 Welcome to Guess Who?!?
-    #guess.list
-    #chat.list
+    pre.
+      \n\t\t      
     table
       tr
         td
@@ -64,9 +61,7 @@ html
           img(src='http://www.clipartsfree.net/vector/medium/purzen_Icon_with_question_mark_Clip_Art.png')
         td
           img(src='http://www.clipartsfree.net/vector/medium/purzen_Icon_with_question_mark_Clip_Art.png')
-    form(name='guessForm')
-      input(type='text', name='guessItem')
-    form(name='chatForm')
-      input(type='text', name='chatItem')
-    #button Guess!
-    #guessButton Send!
+    form(name='input', action='html_form_action.asp', method='get')
+      | Your Guess:
+      input(type='text', name='user')
+      input(type='submit', value='Submit')
