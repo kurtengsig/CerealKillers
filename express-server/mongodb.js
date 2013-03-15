@@ -239,7 +239,7 @@ Database.prototype.loginByName = function(name, callback){
     });
 };
 
-Database.prototype.loginByNameAndPassword = function(name, callback){
+Database.prototype.loginByNameAndPassword = function(name, pass, callback){
     this.getUsers(function(error, user_collection){
         if( error ) callback(error);
         else{
