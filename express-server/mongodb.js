@@ -136,7 +136,7 @@ Database.prototype.findGameById = function(id, callback){
           else callback(null, result);
         });
       }
-    });g
+    });
 };
 
 /* end a game */
