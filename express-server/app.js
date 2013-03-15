@@ -1,8 +1,9 @@
 
 /**
  * Module dependencies.
- *
  */
+
+var Database = require('./mongodb').Database;
 
 var express = require('express')
   , routes = require('./routes')
@@ -32,6 +33,48 @@ app.configure(function(){
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
+var database = new Database('localhost', 27017);
+
+
+
+/**************************/
+
+/* database testing... */
+var user1 = {
+    name: 'aabbcc123'
+};
+database.saveSimpleUser(user1);
+
+var user2 = {
+    name: 'yomanwhatsup'
+};
+database.saveSimpleUser(user2);
+
+database.logoutByName(user2.name, function(){ });
+database.loginByName(user1.name, function(){ });
+
+/* still need to get this function (and others like this) working ... */
+database.userListing(function(error, result){
+    console.log(result);
+});
+
+var id1;
+var id2;
+database.createGame(user1, user2, 'video game characters', function(result){
+    id1 = result;
+    console.log('current game id: ' + id1);
+});
+database.createGame(user1, user2, 'hockey players', function(result){
+    id2 = result;
+    console.log('current game id: ' +id2);
+});
+database.endGameById(id1, function(){ });
+
+
+/***********************/
+
+
 
 app.get('/', function(req, res, next){
     if(req.session.username){
