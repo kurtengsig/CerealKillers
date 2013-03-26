@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var Database = require('./mongodb').Database;
+var db = require('./mongodb').Database;
 
 var express = require('express')
   , routes = require('./routes')
@@ -11,7 +11,7 @@ var express = require('express')
   , game = require('./routes/game')
   , http = require('http')
   , path = require('path')
-  , db = require("./totallyLegitDB");
+  , dbold = require("./totallyLegitDB");
 
 var app = express();
 
@@ -34,43 +34,33 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var database = new Database('localhost', 27017);
-
+var db = new Database('localhost', 27017);
 
 
 /**************************/
 
-/* database testing... */
-var user1 = {
-    name: 'aabbcc123'
-};
-database.saveSimpleUser(user1);
+var user1 = "myName1007";
+var user2 = "uSERUser";
 
-var user2 = {
-    name: 'yomanwhatsup'
-};
-database.saveSimpleUser(user2);
+db.saveSimpleUser(user1);
+db.saveSimpleUser(user2);
 
-database.logoutByName(user2.name, function(){ });
-database.loginByName(user1.name, function(){ });
-
-/* still need to get this function (and others like this) working ... */
-database.userListing(function(error, result){
-    console.log(result);
-});
+db.loginByName("myName1007", function(){ });
+db.loginByName("uSERUser", function(){ });
 
 var id1;
-var id2;
-database.createGame(user1, user2, 'video game characters', function(result){
-    id1 = result;
-    console.log('current game id: ' + id1);
+/* still need to get this function (and others like this) working ... */
+db.userListing(function(error, result){
+    console.log("Users: " + JSON.stringify(result));
 });
-database.createGame(user1, user2, 'hockey players', function(result){
-    id2 = result;
-    console.log('current game id: ' +id2);
-});
-database.endGameById(id1, function(){ });
 
+db.createGame("myName1007", "uSERUser", 'video game characters', function(result){
+    console.log('current game id: ' + result);
+});
+db.createGame("myName1007", "uSERUser", 'hockey players', function(result){
+    console.log('current game id: ' + result);
+});
+db.endGameById(id1, function(){ });
 
 /***********************/
 
@@ -83,14 +73,14 @@ app.get('/', function(req, res, next){
         routes.index(req, res, next);
     }
 });
-app.get('/users', db.isAuthenticated, user.list);
+app.get('/users', dbold.isAuthenticated, user.list);
 app.post("/login", function(req,res){
-    db.login(req, req.body.username);
+    dbold.login(req, req.body.username);
     res.redirect("/users");
 });
 
 app.post("/logout", function(req,res){
-    db.logout(req);
+    dbold.logout(req);
     res.redirect("/");
 });
 
@@ -109,5 +99,3 @@ app.post("/game", function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
-
-
