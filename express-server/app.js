@@ -9,9 +9,10 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , game = require('./routes/game')
+  , index = require('./routes/index')
+  , description = require('./routes/description')
   , http = require('http')
-  , path = require('path')
-  , dbold = require("./totallyLegitDB");
+  , path = require('path');
 
 var app = express();
 
@@ -37,65 +38,47 @@ app.configure('development', function(){
 var db = new Database('localhost', 27017);
 
 
-/**************************/
-
-var user1 = "myName1007";
-var user2 = "uSERUser";
-
-db.saveSimpleUser(user1);
-db.saveSimpleUser(user2);
-
-db.loginByName("myName1007", function(){ });
-db.loginByName("uSERUser", function(){ });
-
-var id1;
-/* still need to get this function (and others like this) working ... */
-db.userListing(function(error, result){
-    console.log("Users: " + JSON.stringify(result));
-});
-
-db.createGame("myName1007", "uSERUser", 'video game characters', function(result){
-    console.log('current game id: ' + result);
-});
-db.createGame("myName1007", "uSERUser", 'hockey players', function(result){
-    console.log('current game id: ' + result);
-});
-db.endGameById(id1, function(){ });
-
-/***********************/
-
-
 
 app.get('/', function(req, res, next){
-    if(req.session.username){
-        res.redirect("/users");
-    }else{
-        routes.index(req, res, next);
-    }
+    // if logged in, account, else /index
+    res.redirect("/index");
 });
-app.get('/users', dbold.isAuthenticated, user.list);
+
 app.post("/login", function(req,res){
-    dbold.login(req, req.body.username);
-    res.redirect("/users");
+    // db.login(req.username);
+    //res.redirect("/account");
 });
 
 app.post("/logout", function(req,res){
-    dbold.logout(req);
+    // logout database
     res.redirect("/");
 });
 
-app.get('/game', function (req, res){
-    res.render('game',
-    { title: 'New Game' }
-    )
+app.get('/index', function(req, res){
+    res.render('index', { 
+        title: 'Welcome to GuessMe!' 
+    })
 });
 
-app.post("/game", function(req, res){
-    res.render('game',
-    { title: 'New Game' }
-    )
+app.get('/game', function(req, res){
+    res.render('game', { 
+        title: 'New Game' 
+    })
+});
+app.post('/move', function(req, res){
+     // Save game state to db!
+ });
+ app.get('/state', function(req, res){
+     // Pull current game state!
+     // [ prob called from ajax ]
+});
+
+app.get('/description', function(req, res){
+    res.render('description', {
+        title: 'About GuessMe!'
+    })
 });
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+    console.log("Express server listening on port " + app.get('port'));
 });
